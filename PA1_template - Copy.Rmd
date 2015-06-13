@@ -1,0 +1,52 @@
+---
+title: "Reproducible Research: Peer Assessment 1"
+output: 
+  html_document:
+    keep_md: true
+---
+
+
+## Loading and preprocessing the data (setwd to the working directory)
+setwd("~/Data Science/Reproducible Research/Assignment1/RepData_PeerAssessment1")
+unzip("activity.zip")
+raw_activity <- read.csv("activity.csv") #The default of na.strings = "NA" is what we want
+
+
+#raw_activity$tmpinterval <- as.character(raw_activity$interval)
+
+raw_activity$tmpinterval[raw_activity$interval < 10] <- paste("000", raw_activity$interval[raw_activity$interval < 10], sep="")
+raw_activity$tmpinterval[raw_activity$interval >= 10 & raw_activity$interval < 100] <- paste("00", raw_activity$interval[raw_activity$interval >= 10 & raw_activity$interval < 100], sep="")
+raw_activity$tmpinterval[raw_activity$interval >= 100 & raw_activity$interval < 1000] <- paste("0", raw_activity$interval[raw_activity$interval >= 100 & raw_activity$interval < 1000], sep="")
+raw_activity$tmpinterval[raw_activity$interval >= 1000] <- raw_activity$interval[raw_activity$interval >= 1000]
+
+
+raw_activity$date_time <- strptime(paste(raw_activity$date,raw_activity$tmpinterval,sep=" "),"%Y-%m-%d %H%M")
+raw_activity$time <- strptime(paste("1970-01-01",raw_activity$tmpinterval,sep=" "),"%Y-%m-%d %H%M")
+raw_activity$date <- as.Date(raw_activity$date) #Change the date variable to be a proper date
+
+raw_activity$tmpinterval <- NULL
+
+
+steps_per_day <- setNames(aggregate(raw_activity$steps, by=list(raw_activity$date), FUN = sum), c("day","steps"))
+#steps_per_day <- aggregate(raw_activity$steps, by=list(day=raw_activity$date), FUN = sum) #The default is to ignore missing values, again, what we want
+hist(steps_per_day$steps)
+
+## What is mean total number of steps taken per day?
+mean(steps_per_day$steps, na.rm = TRUE)
+median(steps_per_day$steps, na.rm = TRUE)
+
+## What is the average daily activity pattern?
+steps_per_5min_interval <- setNames(aggregate(raw_activity$steps, by=list(raw_activity$interval), FUN = mean, na.rm = TRUE), c("interval","steps"))
+
+steps_per_5min_interval <- setNames(aggregate(raw_activity$steps, by=list(raw_activity$interval), FUN = mean, na.rm = TRUE), c("interval","steps"))
+
+
+steps_per_5min_interval$interval[which.max(steps_per_5min_interval$steps)]
+max(steps_per_5min_interval$steps)
+plot(steps_per_5min_interval, type = "l", main = "Average number of steps taken by 5min interval, averaged across all days")
+
+## Imputing missing values
+
+
+
+## Are there differences in activity patterns between weekdays and weekends?
