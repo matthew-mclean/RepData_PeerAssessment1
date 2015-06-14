@@ -173,7 +173,7 @@ activity_no_na$weekde <- factor(activity_no_na$weekde, levels = c("weekday","wee
 
 avg_steps_per_weekde_time <- setNames(aggregate(activity_no_na$steps, by=list(activity_no_na$weekde, activity_no_na$time), FUN = mean), c("weekde","time","steps"))
 
-par(mfrow = c(2, 1), mar = c(2, 2, 2, 2), oma = c(0, 0, 0, 0))
+par(mfrow = c(2, 1), mar = c(2, 3, 2, 3), oma = c(0, 0, 0, 0))
 
 with(subset(avg_steps_per_weekde_time, weekde=="weekday"), plot(steps ~ time, type = "l", main = "Average number of steps taken by 5min interval, across all weekday days", xlab = "time of day", ylab = "number of steps", ylim=c(0, 250)))
 
