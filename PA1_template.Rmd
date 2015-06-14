@@ -83,7 +83,7 @@ steps_per_day_no_na$steps[order(steps_per_day_no_na$steps)]
 The mean is the same as previously since we have added the mean values into the previously missing values. The median has changed, it is now equal to the mean since these 8 mean values were added, these can be seen in the ordered list of the number of steps per day.
 
 ## Are there differences in activity patterns between weekdays and weekends?
-```{r, echo=TRUE}
+```{r, echo=TRUE, fig.width=8, fig.height=8}
 activity_no_na$weekde[weekdays(activity_no_na$date) %in% c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday")] <- "weekday"
 activity_no_na$weekde[weekdays(activity_no_na$date) %in% c( "Saturday", "Sunday")] <- "weekend"
 activity_no_na$weekde <- factor(activity_no_na$weekde, levels = c("weekday","weekend"))
