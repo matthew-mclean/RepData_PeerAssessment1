@@ -59,7 +59,8 @@ The 5-minute interval that contains the maximum number of steps is `r format(ste
 with the maximum number of steps being `r max(steps_per_5min_time$steps)`
 
 ## Imputing missing values
-The total number of missing step values is the same as the total number of missing values, so the only missing values are in the steps variable:
+The total number of missing step values is the same as the total number of missing values, so the only missing values are in the steps variable:  
+The strategy to fill in the missing values is to use the mean for that 5-minute interval - this is already in steps_per_5min_time, so we repeat this data for each of the 8 days that have all their data missing
 ```{r, echo=TRUE}
 length(which(is.na(activity$steps)))
 length(which(is.na(activity)))

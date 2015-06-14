@@ -82,7 +82,8 @@ The 5-minute interval that contains the maximum number of steps is 08:35
 with the maximum number of steps being 206.1698113
 
 ## Imputing missing values
-The total number of missing step values is the same as the total number of missing values, so the only missing values are in the steps variable:
+The total number of missing step values is the same as the total number of missing values, so the only missing values are in the steps variable:  
+The strategy to fill in the missing values is to use the mean for that 5-minute interval - this is already in steps_per_5min_time, so we repeat this data for each of the 8 days that have all their data missing
 
 ```r
 length(which(is.na(activity$steps)))
